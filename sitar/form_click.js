@@ -1,6 +1,6 @@
 var links = [];
 var casper = require('casper').create();
-var aggiu = require('./aggiudicazione.js')
+//var aggiu = require('/home/davide/nexa/public-tenders/sitar/aggiudicazione.js');
 //var regexp = /(javascript:MM_openBrWindow\(\')(.*)(\',\')/;
 var regexp = /\'[A-Za-z\/\s\.-_]+\'/;
 
@@ -9,6 +9,7 @@ function getLinks() {
     return Array.prototype.map.call(links, function(e) {
         return e.getAttribute('href');
     });
+    this.echo('get links')
 }
 
 casper.start('https://www.sitar-er.it/consultazione/consultazione_motore.aspx?JS=1', function() {
@@ -35,8 +36,9 @@ casper.run(function() {
    for (var i = 0; i < links.length; i++) {   
        //regex = new RegExp(links[i], "g");
        //replaceLinks = replaceString.replace(regexp, replace[i]);
-       var r_link = 'https://www.sitar-er.it/consultazione/' + links[i].match(regexp)[0].replace(/\'/g,"")
-       aggiu.scapeSitar(r_link);
+       var r_link = 'https://www.sitar-er.it/consultazione/' + links[i].match(regexp)[0].replace(/\'/g,"");
+       this.echo('YYY');
+       aggiu.scrapeSitar(r_link);
        r_links.push(r_link);
    }
    // Debug
